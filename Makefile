@@ -14,4 +14,4 @@ build:
 
 .PHONY: doc
 doc:
-	cabal haddock poseidon
+	cabal new-haddock poseidon

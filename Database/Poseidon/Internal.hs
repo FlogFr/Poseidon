@@ -1,6 +1,5 @@
 module Database.Poseidon.Internal where
 
-
 import Data.Binary
 import Data.Binary.Get
 import Data.Int

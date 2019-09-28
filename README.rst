@@ -39,6 +39,40 @@ How to use the library?
 
    User : [User {first_name = "Florian :)", is_admin = True}]
 
+All the follow supported types have the availability to be in a Maybe if the
+PostgreSQL is nullable. Otherwise, it will raise an error. Some of the types
+supports also to be in an array.
+
+List of types supported to be deserialized from PostgreSQL:
+
++-------------------+---------------------------------+---------------------------------------+
+| PostgreSQL Type   | Haskell Type                    | Poseidon Type for Single Value Return |
++===================+=================================+=======================================+
+| TEXT NOT NULL     | Data.Text.Text                  | Data.Poseidon.PGText                  |
++-------------------+---------------------------------+---------------------------------------+
+| BOOL              | Data.Bool.Bool                  | Data.Poseidon.PGBool                  |
++-------------------+---------------------------------+---------------------------------------+
+| TIMESTAMP WITH TZ | Data.Time.UTCTime               | Data.Poseidon.PGTimestamp             |
++-------------------+---------------------------------+---------------------------------------+
+| UUID              | Data.UUID.UUID                  | Data.Poseidon.PGUUID                  |
++-------------------+---------------------------------+---------------------------------------+
+| JSON              | Data.Aeson.Value                | Data.Poseidon.PGJsonValue             |
++-------------------+---------------------------------+---------------------------------------+
+| Binary            | Data.ByteString.ByteString      | Data.Poseidon.PGByteString            |
++-------------------+---------------------------------+---------------------------------------+
+| Binary            | Data.ByteString.Lazy.ByteString | Data.Poseidon.PGLazyByteString        |
++-------------------+---------------------------------+---------------------------------------+
+| SMALLINT          | Data.Integer.Integer            | Data.Poseidon.PGInteger               |
++-------------------+---------------------------------+---------------------------------------+
+| DECIMAL           | Data.Float.Float                | Data.Poseidon.PGDecimal               |
++-------------------+---------------------------------+---------------------------------------+
+| NUMERIC           | Data.Float.Float                |                                       |
++-------------------+---------------------------------+---------------------------------------+
+| DOUBLE PRECISION  | Data.Double.Double              | Data.Poseidon.PGDouble                |
++-------------------+---------------------------------+---------------------------------------+
+
+You're all free to contribute and add the missing types for you!
+
 Contribute to the library
 -------------------------
 

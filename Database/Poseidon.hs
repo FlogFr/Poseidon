@@ -41,10 +41,13 @@ import Foreign.C.Types
 import Control.Exception
 import Data.Maybe (fromMaybe)
 import Database.Poseidon.Internal
+import Data.Poseidon()
+
 import Data.Binary
 import Data.Binary.Get
 import Data.UUID
 import Data.Time
+import Data.Aeson as A hiding (Result)
 import Data.Text hiding (splitAt)
 import Data.Text.Encoding (encodeUtf8, decodeUtf8)
 import           Database.PostgreSQL.LibPQ
@@ -225,23 +228,10 @@ genericDeserialize res row col = do
   resrow <- eotDeserialize res row col
   pure $ fromEot resrow
 
-newtype PGText = PGText Text
-  deriving (Generic, Show)
-
-toText :: PGText -> Text
-toText pgText = case pgText of
-                  PGText text' -> text'
-
-newtype PGInteger = PGInteger Integer
-  deriving (Generic, Show)
-
-toInteger :: PGInteger -> Integer
-toInteger pgInteger = case pgInteger of
-                        PGInteger integer' -> integer'
-
-newtype PGUUID = PGUUID UUID
-  deriving (Generic, Show)
-
-toUUID :: PGUUID -> UUID
-toUUID pgUUID = case pgUUID of
-                  PGUUID uuid' -> uuid'
+instance Deserialize A.Value where
+  deserialize res row col = do
+    bs <- (fromMaybe mempty) <$> getBSValue res row col
+    let mValue = A.decode bs :: Maybe A.Value
+    case mValue of
+      Just value' -> pure $ value'
+      Nothing -> error "Impossible to decode JSON"
