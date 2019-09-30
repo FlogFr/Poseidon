@@ -2,7 +2,8 @@ Poseidon - The Simple & Extensible PostgreSQL Library
 =====================================================
 
 Poseidon is a library (not an ORM) for running SQL query against PostgreSQL,
-and returning custom datatypes (e.g. your User datatype, or Token…).
+and returning custom datatypes (e.g. your User datatype, or Token…), thanks to
+the GHC Generics of Haskell.
 
 It is extensible, which means you can add mapping of custom PostgreSQL value to
 your custom Haskell datatype in a easy and pluggable way (without hacking into
